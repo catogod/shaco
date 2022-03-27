@@ -13,14 +13,27 @@
 
 <input type="button" value="spin" style="float:left;" id='spin' onClick="arara()" />
 <canvas id="canvas" width="500" height="500"></canvas>
+<input id="nan" name="nany" value="{{option_wheel}}" type="text" style="visibility:hidden;" />
+
+
+<form id="myform" method="POST" action="/shop">
+  <button id="claim_rew" type="submit" style="visibility:hidden;">Claim Reward</button>
+  </form>
+
 
 
 
 
 <script>
-
-    var options = ["$100", "$10", "$25", "$250", "$30", "$1000", "$1", "$200", "$45", "$500", "$5", "$20", "Lose", "$1000000", "Lose", "$350", "$5", "$99"];
-
+    var neche = document.getElementById("nan").value;
+    var parsedNeche = neche.replace(/\[|\]/g,"").split(',')//deleting ''" " and other staff
+    var options = [];
+    for (let option of parsedNeche)
+    {
+      option = option.replace(/\'|\'/g, "");//deleting the ' ' 
+      options.push(option);
+    }
+    
     var startAngle = 0;
     var arc = Math.PI / (options.length / 2);
     var spinTimeout = null;
@@ -114,8 +127,7 @@
       spinAngleStart = Math.random() * 10 + 10;
       spinTime = 0;
       spinTimeTotal = Math.random() * 3 + 4 * 1000;
-      document.getElementById("spin").style.visibility="hidden";
-      console.log("y") ;
+      document.getElementById("spin").style.visibility="hidden";//hide the button
       rotateWheel();
     }
     
@@ -158,11 +170,12 @@
             duration=--duration;
             console.log(duration);
             if (duration==0){
+              document.getElementById("claim_rew").style.visibility="visible";
               document.getElementById("spin").style.visibility="visible";
-              console.log("inputed"); //checking the first one but it gives me it "" so there is no answer
             }
         }, 1000);
     }
+
   
 
 </script>

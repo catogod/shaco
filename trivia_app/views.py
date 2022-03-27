@@ -4,6 +4,7 @@ from django.views.decorators.cache import cache_control
 import requests
 
 from trivia_app.backend_code.trivia_app.admin_manage import admin_manage
+from trivia_app.backend_code.trivia_app.rulate import rulate_manage
 
 # Create your views here.
 #not saving in session user because of it
@@ -362,4 +363,7 @@ def Top_page_handele(request):
 
 
 def rulate(request):
-   return render(request,"trivia_app/rulate.html")
+   rr=rulate_manage()
+   return render(request,"trivia_app/rulate.html",{
+       "option_wheel":rr.JoinWheel(),
+   })
