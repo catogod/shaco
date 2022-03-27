@@ -1,0 +1,45 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+
+{% block title  %} Main Page {% endblock %}
+
+{% block head_files %}
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet" href="static/trivia_app/menu.css">
+{% endblock %}
+
+
+{% block content %}
+<input type="checkbox" id="active" />
+    <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
+<div class="wrapper">
+    <ul>
+<li><a style="color:{{text_color}}" href="/trivia">Trivia</a></li>
+<li><a style="color:{{text_color}}" href="/user">User</a></li>
+<li><a style="color:{{text_color}}" href="/top">Top</a></li>
+<li><a style="color:{{text_color}}" href="/shop">Shop</a></li>
+<li><a style="color:{{text_color}}" href="/log_out">Log out</a></li>
+</ul>
+</div>
+<div class="content" style="color:{{text_color}}">
+    <div class="title">
+        <h2> Welcome, {{username_session}} </h2></div>
+        <img src="{{img }}" width="250" height="250" />
+        <p> bla bla bla should be basic explanation about the site,
+            touch the wierd balck circle to get some get requests</p>
+            <p>{{trivia_return}}</p>
+</div>
+
+<script>
+    function preventBack() {
+        window.history.forward(); 
+      }
+      
+      setTimeout("preventBack()", 0);
+      
+      window.onunload = function () { null };
+      
+</script>
+
+{% endblock %}
