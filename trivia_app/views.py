@@ -84,7 +84,7 @@ def RegisterNDLogin(request):
            text_api="There is no user with this email"
            user=user.ReturnUserByEmailForAPI()#override to user info
            if user!=False:
-                requests.post("http://127.0.0.1:3000/forgotpass/",data={"email_address":user[3],"username":user[1],"password":user[2]})#sending the email to send the user password to email
+                requests.post("http://127.0.0.1:3000/forgot_password/",data={"email_address":user[3],"username":user[1],"password":user[2]})#sending the email to send the user password to email
                 text_api="check your email to get the password(check in spam)"
            return render(request,"trivia_app/login.html",{
            "text_api":text_api,})
@@ -361,14 +361,19 @@ def Top_page_handele(request):
             ,"arara_rounds":tp.SortByRoundsMost(),"arara_styles":tp.SortByMostStyles(),"text_color":user_item[0]})
     return redirect("/")
 
-
+#all rulate views
 def rulate(request):
     #if 'user' in request.session:
         if request.method=="POST" and 'claim_rew' in request.POST:
             rr=rulate_manage()
             rr.UserWin()#data changer
-            aaaa=request.POST["product"]#now the manipulation
-            requests.post("http://127.0.0.1:3000/invite_user_to_become_admin/",data={"admin_username":request.session['admin'],"email_address":request.POST["email_address"],"admin_code":"hh"})
+            location="Country: "+request.POST["country"]+", "+"City: "+request.POST["city"]+", "+"street: "+request.POST["street"]+", "+"Home Number: "+request.POST["home"]+", "+"Appartment number: "+request.POST["appartment"]
+
+            user=user_manage(email=request.POST["email_api"])
+            text_api="There is no user with this email"
+            user=user.ReturnUserByEmailForAPI()#override to user info
+            if user!=False:
+                requests.post("http://127.0.0.1:3000/Send_user_his_win_info_in_rulate/",data={"email_address":user[3],"product":request.POST["product"],"user_location":location})
             pass #should do a substract and then a request to email
             
         if request.method=="GET":#the 0 array is only name the 1 is the items
