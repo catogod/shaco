@@ -363,7 +363,17 @@ def Top_page_handele(request):
 
 
 def rulate(request):
-   rr=rulate_manage()
-   return render(request,"trivia_app/rulate.html",{
-       "option_wheel":rr.JoinWheel(),
-   })
+    #if 'user' in request.session:
+        if request.method=="POST" and 'claim_rew' in request.POST:
+            rr=rulate_manage()
+            rr.UserWin()#data changer
+            aaaa=request.POST["product"]#now the manipulation
+            requests.post("http://127.0.0.1:3000/invite_user_to_become_admin/",data={"admin_username":request.session['admin'],"email_address":request.POST["email_address"],"admin_code":"hh"})
+            pass #should do a substract and then a request to email
+            
+        if request.method=="GET":#the 0 array is only name the 1 is the items
+            rr=rulate_manage()
+            rr=rr.JoinWheel()#parsing the value to the 2 arrays
+            request.session['items_array'] = rr[1]
+            return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1]})
+    #return redirect("/")

@@ -13,5 +13,5 @@ path("trivia",views.Trivia_handele),
 path("admin",views.admin_handele),
 path("admin_RNL",views.admin_RNL_handele),
 path("log_out_admin",views.Log_out_admin),
-path("rrr",views.rulate),#testing
+path("rulate",views.rulate),#testing
 ]
