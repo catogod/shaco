@@ -8,10 +8,11 @@ path("menu",views.Menu_handele),
 path("user",views.User_handele),
 path("shop",views.shop_handele),
 path("top",views.Top_page_handele),
-path("log_out",views.Log_out),
 path("trivia",views.Trivia_handele),
 path("admin",views.admin_handele),
 path("admin_RNL",views.admin_RNL_handele),
-path("log_out_admin",views.Log_out_admin),
 path("rulate",views.rulate),#testing
+path("main_admin_login",views.Main_admin_login),
+path("main_admin",views.Main_admin),
+path("log_out",views.Log_out),
 ]

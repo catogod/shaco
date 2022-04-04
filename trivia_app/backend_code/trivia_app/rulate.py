@@ -52,6 +52,10 @@ class rulate_manage:
         return True
       return False
 
+    def RulateTable(self):
+      mycursor.execute("Select * from prize_pool")
+      return mycursor.fetchall()
+
 
 
 def DeleteOneItemForShortPeriod(list_item):

@@ -35,7 +35,7 @@ class admin_manage:
     #check if table is empty
 
     def if_table_is_empty(self):#checks if the table is empty
-        mycursor.execute("SELECT COUNT(*) FROM admin")
+        mycursor.execute("SELECT COUNT(*) FROM admin_layer2")
         arr = mycursor.fetchall()#the rows of table
         if arr[0][0] == 0:
             return True
@@ -43,7 +43,7 @@ class admin_manage:
 
     def check_if_admin_exit(self):#check if admin exist - by name
         if self.if_table_is_empty() == False:
-           sql_query = "Select * from admin where username=%s"
+           sql_query = "Select * from admin_layer2 where username=%s"
            value_sql = (self.username,)
            mycursor.execute(sql_query, value_sql)
            if len(mycursor.fetchall()) != 0:
@@ -52,7 +52,7 @@ class admin_manage:
 
     def check_admin(self):#check if admin exist - by name and password
         if self.if_table_is_empty() == False:
-          sql_query = "Select * from admin where username=%s and password=%s"
+          sql_query = "Select * from admin_layer2 where username=%s and password=%s"
           value_sql = (self.username, self.password)
           mycursor.execute(sql_query, value_sql)
           if len(mycursor.fetchall()) != 0:
@@ -62,7 +62,7 @@ class admin_manage:
     def Register(self):#register new admin to data base
         if self.check_if_admin_exit() == True or self.code!=admin_manage.Admin_register_code:
             return False        
-        sql_query = "INSERT INTO admin (username, password) VALUES (%s, %s)"
+        sql_query = "INSERT INTO admin_layer2 (username, password) VALUES (%s, %s)"
         value_sql = (self.username, self.password)
         mycursor.execute(sql_query, value_sql)
         mydb.commit()
@@ -74,6 +74,9 @@ class admin_manage:
             return self.username # the session - security sucks but no one pay me for the work so, gg es bot jungle diff(seesion cant accept classes because of something and you need do some manipulation to put the class and i dont want work on this - this site is shit )
         return None
 
+    def AdminTable(self):
+        mycursor("SELECT * from admin_layer2")
+        return mycursor.fetchall()
 
 
     """main functions>"""

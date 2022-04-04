@@ -27,9 +27,9 @@
         <div class="signup">
             <form method="POST" action="/RegisterNDLogin">
                 <label for="chk" aria-hidden="true">Log in</label>
-                <input type="text" name="username" autocomplete="off" placeholder="Username" required="">
-                <input type="email" name="email" autocomplete="off" placeholder="Email" required="">
-                <input type="password" name="password" autocomplete="off" placeholder="Password" required="">
+                <input type="text" name="username" autocomplete="off" placeholder="Username" required="" maxlength="20">
+                <input type="email" name="email" autocomplete="off" placeholder="Email" required="" maxlength="50">
+                <input type="password" name="password" autocomplete="off" placeholder="Password" required="" maxlength="20">
                 <button type="submit" name="registerbutton">Sign up</button>
                 <p> {{text_return}} </p>
                 <p>{{text_api}} </p>

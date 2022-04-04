@@ -1,3 +1,4 @@
+from pickle import TRUE
 from django.shortcuts import redirect, render
 from django.http import Http404
 from django.views.decorators.cache import cache_control
@@ -5,6 +6,7 @@ import requests
 
 from trivia_app.backend_code.trivia_app.admin_manage import admin_manage
 from trivia_app.backend_code.trivia_app.rulate import rulate_manage
+from trivia_app.backend_code.trivia_app.main_admin import main_admin
 
 # Create your views here.
 #not saving in session user because of it
@@ -40,13 +42,14 @@ def Log_out(request):
     if 'user' in request.session:
       request.session.pop("user")
       return redirect("/")
-    return redirect("/")
-
-def Log_out_admin(request):
     if 'admin' in request.session:
       request.session.pop("admin")
       return redirect("/")
+    if 'main_admin' in request.session:
+      request.session.pop("main_admin")
+      return redirect("/")
     return redirect("/")
+
 
 #view of register and login
 def RegisterNDLogin(request):
@@ -364,7 +367,6 @@ def Top_page_handele(request):
 #all rulate views
 def rulate(request):
     if 'user' in request.session:
-
         if request.method=="GET":#the 0 array is only name the 1 is the items
             user_m=user_manage(username=request.session['user'])
             rr=rulate_manage()
@@ -392,3 +394,28 @@ def rulate(request):
             pass #should do a substract and then a request to email     
         
     return redirect("/")
+
+
+def Main_admin_login(request):
+    if request.method=="GET":
+        return render(request,"trivia_app/main_admin_login.html")
+    if request.method=="POST":
+        M_admin=main_admin(code=request.POST["code"])
+        if M_admin.if_table_is_empty()==TRUE:#first login
+            return render(request,"trivia_app/main_admin.html",{"notice":"Notice you should register a code for this tables access,code for normal admins and the value of using the rulate"})
+        if M_admin.CompareCodes==True:#normal logins
+            return render(request,"trivia_app/main_admin.html")
+        return render(request,"trivia_app/main_admin.html",{"return":"Wrong Code"})
+
+
+def Main_admin(request):
+    if "M_admin" in request.session:
+        r=rulate_manage()
+        admin=admin_manage()
+        M_admin=main_admin()
+
+        if request.method=="GET":           
+            return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"M_adminT":M_admin.GetGmails()})
+
+        if request.method=="POST":
+            return render(request,"trivia_app/main_admin.html",{})
