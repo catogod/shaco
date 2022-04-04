@@ -4,7 +4,7 @@ mydb = mysql.connector.connect(
     host="localhost",
     user="root",
     password="josh17rog",
-    database="project#2",
+    database="project",
     autocommit=True
 )
 
@@ -14,7 +14,7 @@ mycursor = mydb.cursor()
 
 class admin_manage:
     """<user objects"""
-    Admin_register_code = "abcde"
+    Admin_register_code = "abcde"# shaco
 
     def __init__(self,**kwargs):#
         if len(kwargs)==3:

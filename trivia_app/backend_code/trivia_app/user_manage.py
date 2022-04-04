@@ -137,6 +137,7 @@ class user_manage:
             return False
         return True
 
+
     """<Return from data base"""
 
     #id,username,password,email,points,games_played

@@ -18,6 +18,9 @@ class rulate_manage:
           self.name = kwargs["product_name"]
         else:
             pass
+
+
+    
     
     def RegisterItem(self):#register new product
       sql_query = "INSERT INTO prize_pool product_name,amount VALUES %s,%s"
@@ -44,6 +47,13 @@ class rulate_manage:
       AddTheItemsToPreviusBeforeDelExceptThatOne(items)#the data changer
       AutoDelteItem()#auto data base clear
 
+    def CheckIfUserCanUseRulate(user_money):
+      if user_money>=GetThePointsThatNeedToJoinWheel():
+        return True
+      return False
+
+
+
 def DeleteOneItemForShortPeriod(list_item):
   for item in list_item:
     sql_query="UPDATE prize_pool set amount=%s WHERE product_name=%s "
@@ -66,6 +76,11 @@ def AutoDelteItem():#auto delete the item when admin register
             sql_query="DELETE FROM prize_pool WHERE product_name=%s"
             value_sql = (item[1],)
             mycursor.execute(sql_query, value_sql)
+
+def GetThePointsThatNeedToJoinWheel():
+  mycursor.execute("Select points_for_rulate from prize_pool")
+  points = mycursor.fetchall()
+  return points[0][0]
 
 
 

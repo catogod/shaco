@@ -198,7 +198,7 @@ def Trivia_handele(request):
                 userItems =user_items(username=request.session['user'])
                 userItems=userItems.GetUserSelectedStyles()#override to user styles get the user selcted styles
                 return render(request,"trivia_app/menu.html",{
-                 "trivia_return":"wrong answer, check your game history for more info - id of game : " + request.POST["hid_game_id"],
+                 "all_return":"wrong answer, check your game history for more info - id of game : " + request.POST["hid_game_id"],
                  "username_session":request.session['user'],"text_color":userItems[0],"img":"static/trivia_app/"+userItems[1],})
         #get
         if request.method=="GET":
@@ -363,7 +363,22 @@ def Top_page_handele(request):
 
 #all rulate views
 def rulate(request):
-    #if 'user' in request.session:
+    if 'user' in request.session:
+
+        if request.method=="GET":#the 0 array is only name the 1 is the items
+            user_m=user_manage(username=request.session['user'])
+            rr=rulate_manage()
+            if rr.CheckIfUserCanUseRulate(user_m.GetPointsFromData()) ==True:
+                rr=rr.JoinWheel()#parsing the value to the 2 arrays
+                request.session['items_array'] = rr[1]
+                return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1]})
+
+            userItems =user_items(username=request.session['user'])
+            userItems=userItems.GetUserSelectedStyles()
+            return render(request,"trivia_app/menu.html",{
+                 "all_return":"Sorry but you are dont have enough points to use rulate",#maybe to do from top 10 of each
+                 "username_session":request.session['user'],"text_color":userItems[0],"img":"static/trivia_app/"+userItems[1],})
+
         if request.method=="POST" and 'claim_rew' in request.POST:
             rr=rulate_manage()
             rr.UserWin()#data changer
@@ -374,11 +389,6 @@ def rulate(request):
             user=user.ReturnUserByEmailForAPI()#override to user info
             if user!=False:
                 requests.post("http://127.0.0.1:3000/Send_user_his_win_info_in_rulate/",data={"email_address":user[3],"product":request.POST["product"],"user_location":location})
-            pass #should do a substract and then a request to email
-            
-        if request.method=="GET":#the 0 array is only name the 1 is the items
-            rr=rulate_manage()
-            rr=rr.JoinWheel()#parsing the value to the 2 arrays
-            request.session['items_array'] = rr[1]
-            return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1]})
-    #return redirect("/")
+            pass #should do a substract and then a request to email     
+        
+    return redirect("/")
