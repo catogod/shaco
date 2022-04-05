@@ -415,7 +415,28 @@ def Main_admin(request):
         M_admin=main_admin()
 
         if request.method=="GET":           
-            return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"M_adminT":M_admin.GetGmails()})
+            return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
 
         if request.method=="POST":
-            return render(request,"trivia_app/main_admin.html",{})
+            #add trivia question
+            if 'button_delete_admin' in request.POST:
+               ad=admin_manage(username=request.POST["username_find"])
+               text="There is not admin with this username"
+               if ad.Delete_Admin_By_Name() == True:
+                   text="Admin deleted"
+               return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+            if 'button_insert_prize' in request.POST:
+                rulate=rulate_manage(product_name=request.POST["name_insert"],amount=request.POST["amount_insert"])
+                text="the item added to the data"
+                rulate.RegisterItem()
+                return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+            if 'button_insert_code' in request.POST:
+                m_ad=main_admin(code=request.POST["main_code_insert"],inv_code=request.POST["admin_inv_code_insert"],rulate_p=request.POST["rulate_points_insert"])
+                text="you cant insert new values, update it!"
+                if m_ad.InsertCode()==True:
+                    text="Insert successfuly"
+                return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+            if 'button_update_code' in request.POST:
+                return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+            
+        return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})

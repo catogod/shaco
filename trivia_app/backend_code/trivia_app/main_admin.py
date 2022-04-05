@@ -17,8 +17,16 @@ class main_admin:
     Admin_register_code = "abcde"# shaco
 
     def __init__(self,kwargs):#
-      if len(kwargs)==1:
+      if len(kwargs)==3:
         self.code=kwargs["code"]
+        self.inv_code=kwargs["inv_code"]
+        self.rulate_p=kwargs["rulate_p"]
+      elif 'code' in kwargs:
+        self.code=kwargs["code"]
+      elif 'inv_code' in kwargs:
+        self.code=kwargs["inv_code"]
+      elif 'rulate_p' in kwargs:
+        self.code=kwargs["rulste_p"]
       else:
         pass
 
@@ -45,5 +53,14 @@ class main_admin:
 
     def GetGmails(self):
       mycursor.execute("SELECT * from gmail_send")
+    
+    def InsertCode(self):
+      if self.if_table_is_empty() == False:
+        sql_query = "INSERT INTO main_admin (main_code, admin_inv_code, points_for_rulate) VALUES (%s, %s,%s)"
+        value_sql = (self.code, self.inv_code, self.rulate_p)
+        mycursor.execute(sql_query, value_sql)
+        return True
+      return False
+
 
 

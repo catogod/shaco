@@ -1,3 +1,4 @@
+from tabnanny import check
 import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -24,8 +25,9 @@ class admin_manage:
         elif len(kwargs)==2:
           self.username = kwargs["username"]
           self.password = kwargs["password"]
-        else:
-            pass
+        elif len(kwargs)==1:
+            self.username = kwargs["username"]
+        pass
 
     """user objects>"""
 
@@ -77,6 +79,14 @@ class admin_manage:
     def AdminTable(self):
         mycursor("SELECT * from admin_layer2")
         return mycursor.fetchall()
+    
+    def Delete_Admin_By_Name(self):
+        if self.check_admin()==True:
+            sql_query = "DELETE FROM admin_layer2 WHERE username=%s"
+            value_sql = (self.username,)
+            mycursor.execute(sql_query, value_sql)
+            return True
+        return False
 
 
     """main functions>"""
