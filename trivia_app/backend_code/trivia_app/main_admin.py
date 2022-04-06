@@ -16,7 +16,7 @@ class main_admin:
     """<user objects"""
     Admin_register_code = "abcde"# shaco
 
-    def __init__(self,kwargs):#
+    def __init__(self,**kwargs):#
       if len(kwargs)==3:
         self.code=kwargs["code"]
         self.inv_code=kwargs["inv_code"]
@@ -24,9 +24,9 @@ class main_admin:
       elif 'code' in kwargs:
         self.code=kwargs["code"]
       elif 'inv_code' in kwargs:
-        self.code=kwargs["inv_code"]
+        self.inv_code=kwargs["inv_code"]
       elif 'rulate_p' in kwargs:
-        self.code=kwargs["rulste_p"]
+        self.rulate_p=kwargs["rulate_p"]
       else:
         pass
 
@@ -47,17 +47,42 @@ class main_admin:
     def CompareCodes(self):
         mycursor.execute("SELECT main_code FROM main_admin")
         sql_code=mycursor.fetchall()
-        if self.code==sql_code[0][0]:
+        if self.code==sql_code[0][1]:
           return True
         return False
 
     def GetGmails(self):
       mycursor.execute("SELECT * from gmail_send")
+      return mycursor.fetchall()
     
     def InsertCode(self):
       if self.if_table_is_empty() == False:
-        sql_query = "INSERT INTO main_admin (main_code, admin_inv_code, points_for_rulate) VALUES (%s, %s,%s)"
-        value_sql = (self.code, self.inv_code, self.rulate_p)
+        sql_query = "INSERT INTO main_admin (key , main_admin_code, admin_inv_code, points_for_rulate) VALUES (%s,%s,%s,%s)"
+        value_sql = (1,self.code, self.inv_code, self.rulate_p)
+        mycursor.execute(sql_query, value_sql)
+        return True
+      return False
+
+    def UpdateCode(self):
+      if self.if_table_is_empty()==False:
+        sql_query = "UPDATE main_admin SET main_admin_code=%s where key=%s"
+        value_sql = (self.code,1)
+        mycursor.execute(sql_query, value_sql)
+        return True
+      return False
+
+    def UpdateInvCode(self):
+      if self.if_table_is_empty()==False:
+        sql_query = "UPDATE main_admin SET admin_inv_code=%s where key=%s"
+        value_sql = (self.inv_code,1)
+        mycursor.execute(sql_query, value_sql)
+        return True
+      return False
+
+    def UpdateRulatePoints(self):
+      if self.if_table_is_empty()==False:
+        sql_query = "UPDATE main_admin SET points_for_rulate=%s where key=%s"
+        value_sql = (self.rulate_p,1)
         mycursor.execute(sql_query, value_sql)
         return True
       return False

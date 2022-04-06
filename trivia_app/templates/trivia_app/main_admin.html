@@ -19,11 +19,12 @@
     <button class="btnChoose" name="btn-ff" type="submit" value="func" >Show Admin Functions</button>
     <button class="btnChoose" name="btn-ff" type="submit" value="data" >Show Data Base</button>
     <p>{{return_answer}}</p>
+    <p>{{notice}}</p>
 
 <div id="func" style="display:none">
 
 <h1> Choose what you want to change</h1>
-<form id="myform" method="GET" action="/admin">
+<form id="myform" method="GET" action="/main_admin">
   <div id="a"> 
     <div class="aa"><p> <input type="checkbox" value="delete_admin" name="box" onClick="onlyOneAdminChoose(this)"/>Delete Admins</p></div>
     <div class="aa"><p> <input type="checkbox" value="insert_code" name="box" onClick="onlyOneAdminChoose(this)"/>Insert all values for first time</p></div>
@@ -32,14 +33,14 @@
   </div>
 </form>
 
-<form id="MyFormAdmin" style="display:none" method="POST" action="/admin">
+<form id="MyFormAdmin" style="display:none" method="POST" action="/main_admin">
     <h5>Delete Admin by username</h5>
     <p>Enter username:</p>
     <input type="text" name="username_find">
     <button type="submit" name="button_delete_admin"> click </button>
   </form>
 
-  <form id="MyFormPrize" style="display:none" method="POST" action="/admin">
+  <form id="MyFormPrize" style="display:none" method="POST" action="/main_admin">
     <h5>Add new prize</h5>
     <p>Enter the name:</p>
     <input type="text" name="name_insert">
@@ -48,34 +49,34 @@
     <button type="submit" name="button_insert_prize"> click </button>
   </form>
 
-  <form id="MyFormInsertValues" style="display:none" method="POST" action="/admin">
+  <form id="MyFormInsertValues" style="display:none" method="POST" action="/main_admin">
     <h5>Add new values(only first time)</h5>
     <p>Enter the main code:</p>
-    <input type="text" name="main_code_insert">
+    <input type="text" name="main_code_insert" required="" maxlength="20">
     <p>Enter the admin code invite</p>
-    <input type="text" name="admin_inv_code_insert">
+    <input type="text" name="admin_inv_code_insert" required="" maxlength="20">
     <p>Enter the base points to join rulate</p>
-    <input type="number" name="rulate_points_insert">
+    <input type="number" name="rulate_points_insert" required="" maxlength="20">
     <button type="submit" name="button_insert_value"> click </button>
   </form>
 
   <div id="MyFormUpdateValues" style="display:none">
      <h5>Update values </h5>
-    <form style="display:none" method="POST" action="/admin">
+    <form style="display:none" method="POST" action="/main_admin">
         <p>Enter the main code:</p>
-        <input type="text" name="main_code_insert">
+        <input type="text" name="update" required="" maxlength="20">
         <button type="submit" name="button_update_value_code"> Update </button>
     </form>
     </br>
-    <form style="display:none" method="POST" action="/admin">
+    <form style="display:none" method="POST" action="/main_admin">
         <p>Enter the admin code invite</p>
-        <input type="text" name="admin_inv_code_insert">
+        <input type="text" name="update" required="" maxlength="20">
         <button type="submit" name="button_update_value_inv_code"> Update </button>
     </form>
     </br>
-    <form style="display:none" method="POST" action="/admin">
+    <form style="display:none" method="POST" action="/main_admin">
         <p>Enter the base points to join rulate</p>
-        <input type="number" name="rulate_points_insert">
+        <input type="number" name="update" required="" maxlength="20">
         <button type="submit" name="button_update_value_rulate"> Update </button>
     </form>
   </div>

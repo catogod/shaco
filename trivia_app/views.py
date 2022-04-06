@@ -400,11 +400,17 @@ def Main_admin_login(request):
     if request.method=="GET":
         return render(request,"trivia_app/main_admin_login.html")
     if request.method=="POST":
+        r=rulate_manage()
+        admin=admin_manage()
+        Main_admin=main_admin()
+
         M_admin=main_admin(code=request.POST["code"])
-        if M_admin.if_table_is_empty()==TRUE:#first login
-            return render(request,"trivia_app/main_admin.html",{"notice":"Notice you should register a code for this tables access,code for normal admins and the value of using the rulate"})
+        if M_admin.if_table_is_empty()==True:#first login
+            request.session['M_admin']="Confirmed"
+            return render(request,"trivia_app/main_admin.html",{"notice":"Notice you should register a code for this tables access,code for normal admins and the value of using the rulate","rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":Main_admin.GetGmails()})
         if M_admin.CompareCodes==True:#normal logins
-            return render(request,"trivia_app/main_admin.html")
+            request.session['M_admin']="Confirmed"
+            return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":Main_admin.GetGmails()})
         return render(request,"trivia_app/main_admin.html",{"return":"Wrong Code"})
 
 
@@ -418,7 +424,7 @@ def Main_admin(request):
             return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
 
         if request.method=="POST":
-            #add trivia question
+            #delete admin
             if 'button_delete_admin' in request.POST:
                ad=admin_manage(username=request.POST["username_find"])
                text="There is not admin with this username"
@@ -436,7 +442,23 @@ def Main_admin(request):
                 if m_ad.InsertCode()==True:
                     text="Insert successfuly"
                 return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
-            if 'button_update_code' in request.POST:
+            if 'button_update_value_code' in request.POST:
+                text="Update failed, no code regisetered"
+                M_admin=main_admin(code=request.POST["update"])
+                if M_admin.UpdateCode()==True:
+                    text="Main admin code Updated"
+                return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+            if 'button_update_value_inv_code' in request.POST:
+                text="Update failed, no code regisetered"
+                M_admin=main_admin(inv_code=request.POST["update"])
+                if M_admin.UpdateInvCode()==True:
+                    text="Main admin invation code Updated"
+                return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+            if 'button_update_value_rulate' in request.POST:
+                text="Update failed, no code regisetered"
+                M_admin=main_admin(rulate_p=request.POST["update"])
+                if M_admin.UpdateRulatePoints()==True:
+                    text="Base points for rulate Updated"
                 return render(request,"trivia_app/main_admin.html",{"return_answer":text,"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
             
-        return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
+    return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":M_admin.GetGmails()})
