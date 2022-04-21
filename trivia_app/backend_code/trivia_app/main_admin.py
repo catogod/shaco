@@ -51,21 +51,25 @@ class main_admin:
           return True
         return False
 
-    def GetGmails(self):
+    def GetGmails(self):#maybe get it from another program
       mycursor.execute("SELECT * from gmail_send")
+      return mycursor.fetchall()
+
+    def GetTableCodes(self):
+      mycursor.execute("SELECT * from main_admin")
       return mycursor.fetchall()
     
     def InsertCode(self):
-      if self.if_table_is_empty() == False:
-        sql_query = "INSERT INTO main_admin (key , main_admin_code, admin_inv_code, points_for_rulate) VALUES (%s,%s,%s,%s)"
-        value_sql = (1,self.code, self.inv_code, self.rulate_p)
+      if self.if_table_is_empty() == True:
+        sql_query = "INSERT INTO main_admin (key_1,main_admin_code,admin_inv_code,points_for_rulate) VALUES (%s,%s,%s,%s)"
+        value_sql = (1,  self.code, self.inv_code, self.rulate_p,)
         mycursor.execute(sql_query, value_sql)
         return True
       return False
 
     def UpdateCode(self):
       if self.if_table_is_empty()==False:
-        sql_query = "UPDATE main_admin SET main_admin_code=%s where key=%s"
+        sql_query = "UPDATE main_admin SET main_admin_code=%s where key_1=%s"
         value_sql = (self.code,1)
         mycursor.execute(sql_query, value_sql)
         return True
@@ -73,7 +77,7 @@ class main_admin:
 
     def UpdateInvCode(self):
       if self.if_table_is_empty()==False:
-        sql_query = "UPDATE main_admin SET admin_inv_code=%s where key=%s"
+        sql_query = "UPDATE main_admin SET admin_inv_code=%s where key_1=%s"
         value_sql = (self.inv_code,1)
         mycursor.execute(sql_query, value_sql)
         return True
@@ -81,7 +85,7 @@ class main_admin:
 
     def UpdateRulatePoints(self):
       if self.if_table_is_empty()==False:
-        sql_query = "UPDATE main_admin SET points_for_rulate=%s where key=%s"
+        sql_query = "UPDATE main_admin SET points_for_rulate=%s where key_1=%s"
         value_sql = (self.rulate_p,1)
         mycursor.execute(sql_query, value_sql)
         return True

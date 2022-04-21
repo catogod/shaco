@@ -77,7 +77,7 @@ class admin_manage:
         return None
 
     def AdminTable(self):
-        mycursor("SELECT * from admin_layer2")
+        mycursor.execute("SELECT * from admin_layer2")
         return mycursor.fetchall()
     
     def Delete_Admin_By_Name(self):

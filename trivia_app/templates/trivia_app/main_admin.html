@@ -57,24 +57,24 @@
     <input type="text" name="admin_inv_code_insert" required="" maxlength="20">
     <p>Enter the base points to join rulate</p>
     <input type="number" name="rulate_points_insert" required="" maxlength="20">
-    <button type="submit" name="button_insert_value"> click </button>
+    <button type="submit" name="button_insert_values"> click </button>
   </form>
 
   <div id="MyFormUpdateValues" style="display:none">
      <h5>Update values </h5>
-    <form style="display:none" method="POST" action="/main_admin">
+    <form method="POST" action="/main_admin">
         <p>Enter the main code:</p>
         <input type="text" name="update" required="" maxlength="20">
         <button type="submit" name="button_update_value_code"> Update </button>
     </form>
     </br>
-    <form style="display:none" method="POST" action="/main_admin">
+    <form method="POST" action="/main_admin">
         <p>Enter the admin code invite</p>
         <input type="text" name="update" required="" maxlength="20">
         <button type="submit" name="button_update_value_inv_code"> Update </button>
     </form>
     </br>
-    <form style="display:none" method="POST" action="/main_admin">
+    <form method="POST" action="/main_admin">
         <p>Enter the base points to join rulate</p>
         <input type="number" name="update" required="" maxlength="20">
         <button type="submit" name="button_update_value_rulate"> Update </button>
@@ -92,6 +92,7 @@
       <div class="aa"><p> <input type="checkbox" value="admin_show" name="box" onClick="onlyOneAdminChoose(this)"/>Show admins table</p></div>
       <div class="aa"><p> <input type="checkbox" value="gmail_show" name="box" onClick="onlyOneAdminChoose(this)"/>Show gmails table</p></div>
       <div class="aa"><p> <input type="checkbox" value="prize_show" name="box" onClick="onlyOneAdminChoose(this)"/>Show prize table</p></div>
+      <div class="aa"><p> <input type="checkbox" value="admin_code" name="box" onClick="onlyOneAdminChoose(this)"/>Show admins codes</p></div>
     </div>
 
     <div id="admin_show" style="display:none">
@@ -138,6 +139,24 @@
           <tr>
               <td>{{item.1}}</td> 
               <td>{{item.2}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+       </div>
+       
+       
+       <div id="admin_codes" style="display:none">
+        <table>
+          <tr>
+            <th>Main admin login code</th>
+            <th>Admins login code</th>
+            <th>Amount of points to use rulate</th>
+          </tr> 
+        {% for item in codeT %} 
+          <tr>
+              <td>{{item.1}}</td> 
+              <td>{{item.2}}</td>
+              <td>{{item.3}}</td>
           </tr>
         {% endfor %}
       </table>
@@ -191,6 +210,7 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
       document.getElementById('admin_show').style.display="none";
       document.getElementById('gmail_show').style.display="none";
       document.getElementById('prize_show').style.display="none";
+      document.getElementById('admin_codes').style.display="none";
     }
     else if(vrible == "insert_code"){
       //acts
@@ -202,6 +222,7 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
       document.getElementById('admin_show').style.display="none";
       document.getElementById('gmail_show').style.display="none";
       document.getElementById('prize_show').style.display="none";
+      document.getElementById('admin_codes').style.display="none";
     }
     else if(vrible == "update_code"){
         //acts
@@ -213,6 +234,7 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
         document.getElementById('admin_show').style.display="none";
         document.getElementById('gmail_show').style.display="none";
         document.getElementById('prize_show').style.display="none";
+        document.getElementById('admin_codes').style.display="none";
       }
       else if(vrible == "add_prize"){
         //acts
@@ -224,6 +246,7 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
         document.getElementById('admin_show').style.display="none";
         document.getElementById('gmail_show').style.display="none";
         document.getElementById('prize_show').style.display="none";
+        document.getElementById('admin_codes').style.display="none";
       }
       else if(vrible == "admin_show"){
         //acts
@@ -235,6 +258,7 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
         document.getElementById('admin_show').style.display="block";
         document.getElementById('gmail_show').style.display="none";
         document.getElementById('prize_show').style.display="none";
+        document.getElementById('admin_codes').style.display="none";
       }
       else if(vrible == "gmail_show"){
         //acts
@@ -246,6 +270,7 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
         document.getElementById('admin_show').style.display="none";
         document.getElementById('gmail_show').style.display="block";
         document.getElementById('prize_show').style.display="none";
+        document.getElementById('admin_codes').style.display="none";
       }
       else if(vrible == "prize_show"){
         //acts
@@ -257,6 +282,19 @@ function onlyOneAdminChoose(checkbox) { //manuipulation with forms
         document.getElementById('admin_show').style.display="none";
         document.getElementById('gmail_show').style.display="none";
         document.getElementById('prize_show').style.display="block";
+        document.getElementById('admin_codes').style.display="none";
+      }
+      else if(vrible=="admin_code"){
+        //acts
+        document.getElementById('MyFormAdmin').style.display="none";
+        document.getElementById('MyFormPrize').style.display="none";
+        document.getElementById('MyFormInsertValues').style.display="none";
+        document.getElementById('MyFormUpdateValues').style.display="none";
+        //data
+        document.getElementById('admin_show').style.display="none";
+        document.getElementById('gmail_show').style.display="none";
+        document.getElementById('prize_show').style.display="none";
+        document.getElementById('admin_codes').style.display="block";
       }
     
 }
