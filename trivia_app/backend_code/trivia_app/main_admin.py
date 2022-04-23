@@ -45,9 +45,9 @@ class main_admin:
         return False
 
     def CompareCodes(self):
-        mycursor.execute("SELECT main_code FROM main_admin")
+        mycursor.execute("SELECT main_admin_code FROM main_admin")
         sql_code=mycursor.fetchall()
-        if self.code==sql_code[0][1]:
+        if self.code==sql_code[0][0]:
           return True
         return False
 

@@ -23,7 +23,7 @@ class rulate_manage:
     
     
     def RegisterItem(self):#register new product
-      sql_query = "INSERT INTO prize_pool product_name,amount VALUES %s,%s"
+      sql_query = "INSERT INTO prize_pool (product_name,amount) VALUES (%s,%s)"
       value_sql = (self.name, self.amount)
       mycursor.execute(sql_query, value_sql)
       AutoDelteItem()#auto data base clear
@@ -47,7 +47,7 @@ class rulate_manage:
       AddTheItemsToPreviusBeforeDelExceptThatOne(items)#the data changer
       AutoDelteItem()#auto data base clear
 
-    def CheckIfUserCanUseRulate(user_money):
+    def CheckIfUserCanUseRulate(self,user_money):
       if user_money>=GetThePointsThatNeedToJoinWheel():
         return True
       return False
@@ -82,7 +82,7 @@ def AutoDelteItem():#auto delete the item when admin register
             mycursor.execute(sql_query, value_sql)
 
 def GetThePointsThatNeedToJoinWheel():
-  mycursor.execute("Select points_for_rulate from prize_pool")
+  mycursor.execute("Select points_for_rulate from main_admin where key_1=1")
   points = mycursor.fetchall()
   return points[0][0]
 

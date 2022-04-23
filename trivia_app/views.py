@@ -373,7 +373,7 @@ def rulate(request):
             user_m=user_manage(username=request.session['user'])
             rr=rulate_manage()
             if rr.CheckIfUserCanUseRulate(user_m.GetPointsFromData()) ==True:
-                rr=rr.JoinWheel()#parsing the value to the 2 arrays
+                rr=rr.JoinWheel()#parsing the value to the 2 arrays - each time user realod it takes the items so...
                 request.session['items_array'] = rr[1]
                 return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1]})
 
@@ -383,17 +383,14 @@ def rulate(request):
                  "all_return":"Sorry but you are dont have enough points to use rulate",#maybe to do from top 10 of each
                  "username_session":request.session['user'],"text_color":userItems[0],"img":"static/trivia_app/"+userItems[1],})
 
-        if request.method=="POST" and 'claim_rew' in request.POST:
+        if request.method=="POST":
             rr=rulate_manage()
-            rr.UserWin()#data changer
+            rr.UserWin(request.session["items_array"])#data changer
+            request.session.pop("items_array")
             location="Country: "+request.POST["country"]+", "+"City: "+request.POST["city"]+", "+"street: "+request.POST["street"]+", "+"Home Number: "+request.POST["home"]+", "+"Appartment number: "+request.POST["appartment"]
-
-            user=user_manage(email=request.POST["email_api"])
-            text_api="There is no user with this email"
-            user=user.ReturnUserByEmailForAPI()#override to user info
-            if user!=False:
-                requests.post("http://127.0.0.1:3000/Send_user_his_win_info_in_rulate/",data={"email_address":user[3],"product":request.POST["product"],"user_location":location})
-            pass #should do a substract and then a request to email     
+            user_email=user_manage(username=request.session['user']).GetEmailFromData()
+            requests.post("http://127.0.0.1:3000/Send_user_his_win_info_in_rulate/",data={"email_address":user_email,"product":request.POST["product"],"user_location":location})
+            return render(request,"trivia_app/menu.html",{"all_return":"The product you won will arrive soon to you, check your email for more information"})     
         
     return redirect("/")
 
@@ -413,10 +410,11 @@ def Main_admin_login(request):
         if M_admin.if_table_is_empty()==True:#first login
             request.session['main_admin']="Confirmed"
             return render(request,"trivia_app/main_admin.html",{"notice":"Notice you should register a code for this tables access,code for normal admins and the value of using the rulate","rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":Main_admin.GetGmails(),"codeT":M_admin.GetTableCodes()})
-        if M_admin.CompareCodes==True:#normal logins
+
+        if M_admin.CompareCodes()==True:#normal logins
             request.session['main_admin']="Confirmed"
             return render(request,"trivia_app/main_admin.html",{"rulateT":r.RulateTable(),"adminT":admin.AdminTable,"GmailT":Main_admin.GetGmails(),"codeT":M_admin.GetTableCodes()})
-        return render(request,"trivia_app/main_admin.html",{"return":"Wrong Code"})
+        return render(request,"trivia_app/main_admin_login.html",{"return":"Wrong Code"})
 
 
 def Main_admin(request):

@@ -36,27 +36,27 @@
 <form id="MyFormAdmin" style="display:none" method="POST" action="/main_admin">
     <h5>Delete Admin by username</h5>
     <p>Enter username:</p>
-    <input type="text" name="username_find">
+    <input type="text" name="username_find" autocomplete="off">
     <button type="submit" name="button_delete_admin"> click </button>
   </form>
 
   <form id="MyFormPrize" style="display:none" method="POST" action="/main_admin">
     <h5>Add new prize</h5>
     <p>Enter the name:</p>
-    <input type="text" name="name_insert">
+    <input type="text" name="name_insert" autocomplete="off">
     <p>Enter amount</p>
-    <input type="number" name="amount_insert">
+    <input type="number" name="amount_insert" autocomplete="off">
     <button type="submit" name="button_insert_prize"> click </button>
   </form>
 
   <form id="MyFormInsertValues" style="display:none" method="POST" action="/main_admin">
     <h5>Add new values(only first time)</h5>
     <p>Enter the main code:</p>
-    <input type="text" name="main_code_insert" required="" maxlength="20">
+    <input type="text" name="main_code_insert" required="" maxlength="20" autocomplete="off">
     <p>Enter the admin code invite</p>
-    <input type="text" name="admin_inv_code_insert" required="" maxlength="20">
+    <input type="text" name="admin_inv_code_insert" required="" maxlength="20" autocomplete="off">
     <p>Enter the base points to join rulate</p>
-    <input type="number" name="rulate_points_insert" required="" maxlength="20">
+    <input type="number" name="rulate_points_insert" required="" maxlength="20" autocomplete="off">
     <button type="submit" name="button_insert_values"> click </button>
   </form>
 
@@ -64,19 +64,19 @@
      <h5>Update values </h5>
     <form method="POST" action="/main_admin">
         <p>Enter the main code:</p>
-        <input type="text" name="update" required="" maxlength="20">
+        <input type="text" name="update" required="" maxlength="20" autocomplete="off">
         <button type="submit" name="button_update_value_code"> Update </button>
     </form>
     </br>
     <form method="POST" action="/main_admin">
         <p>Enter the admin code invite</p>
-        <input type="text" name="update" required="" maxlength="20">
+        <input type="text" name="update" required="" maxlength="20" autocomplete="off">
         <button type="submit" name="button_update_value_inv_code"> Update </button>
     </form>
     </br>
     <form method="POST" action="/main_admin">
         <p>Enter the base points to join rulate</p>
-        <input type="number" name="update" required="" maxlength="20">
+        <input type="number" name="update" required="" maxlength="20" autocomplete="off">
         <button type="submit" name="button_update_value_rulate"> Update </button>
     </form>
   </div>
