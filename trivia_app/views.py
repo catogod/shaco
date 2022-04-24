@@ -374,10 +374,12 @@ def rulate(request):#should add user colors
         if request.method=="GET":#the 0 array is only name the 1 is the items
             user_m=user_manage(username=request.session['user'])
             rr=rulate_manage()
-            if rr.CheckIfUserCanUseRulate(user_m.GetPointsFromData()) ==True:
+            remain_points=rr.CheckIfUserCanUseRulate(user_m.GetPointsFromData())#false or user points after paying for rulate
+            if remain_points !=False:
+                user_m.UpdateUserPoints(remain_points)#taking the points from user
                 rr=rr.JoinWheel()#parsing the value to the 2 arrays - each time user realod it takes the items so...
                 request.session['items_array'] = rr[1]
-                return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1]})
+                return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1],"all_return":"From your blance were taken "})
 
         
             return render(request,"trivia_app/menu.html",{

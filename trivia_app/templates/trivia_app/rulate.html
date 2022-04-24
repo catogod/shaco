@@ -12,41 +12,29 @@
 
 {% block content %}
 
-<input type="checkbox" id="active" />
-    <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
-<div class="wrapper">
-    <ul>
-<li><a style="color:{{text_color}}" href="/trivia">Trivia</a></li>
-<li><a style="color:{{text_color}}" href="/user">User</a></li>
-<li><a style="color:{{text_color}}" href="/top">Top</a></li>
-<li><a style="color:{{text_color}}" href="/shop">Shop</a></li>
-<li><a style="color:{{text_color}}" href="/rulate">Rulate</a></li>
-<li><a style="color:{{text_color}}" href="/log_out">Log out</a></li>
-</ul>
-</div>
-
-<input type="button" value="spin" style="float:left;" id='spin' onClick="arara()" />
+<div style="text-align: center;">
 <canvas id="canvas" width="500" height="500"></canvas>
+<input style="top:70%;left:41.5%;position:absolute; padding: 5px 5px 5px 5px; width: 5%;" type="button" value="spin" id='spin' onClick="arara()" />
 <input id="nan" name="nany" value="{{option_wheel}}" type="text" style="visibility:hidden;" />
 
 
 <form id="form_sub" method="POST" action="/rulate" style="display:none">
  <h1 id="TheItem"></h1>
  <p>Enter Your Country name</p>
- <input name="country" type="text" required>
+ <input id="country" name="country" type="text" required>
  <p>Enter Your City name</p>
- <input type="text" name="city" required>
+ <input id="city" type="text" name="city" required>
  <p>Enter Your street name</p>
- <input type="text" name="street" required>
+ <input id="text" type="text" name="street" required>
  <p>Enter Your home number</p>
- <input type="text" name="home" required>
+ <input id="home" type="text" name="home" required>
  <p>Enter Your Appartment number</p>
- <input type="text" name="appartment" required>
+ <input id="appartment" type="text" name="appartment" required>
  <p>Check carefully the information before confirm</p>
- <button id="claim_rew" type="submit">Claim Reward</button>
+ <button  style="top:70%;left:47%;position:absolute; padding: 5px 5px 5px 5px; width: 5%;" id="claim_rew" type="submit">Claim Reward</button>
   <input id="product" name="product" value="" type="text" style="visibility:hidden;"/>
   </form>
-
+</div>
 
 
 

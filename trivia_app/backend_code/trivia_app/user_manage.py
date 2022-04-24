@@ -137,6 +137,11 @@ class user_manage:
             return False
         return True
 
+    def UpdateUserPoints(self,points):
+        sql_query = "UPDATE user SET points=%s where username=%s"
+        value_sql = (points,self.username)
+        mycursor.execute(sql_query, value_sql)
+
 
     """<Return from data base"""
 

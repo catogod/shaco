@@ -26,7 +26,6 @@ class rulate_manage:
       sql_query = "INSERT INTO prize_pool (product_name,amount) VALUES (%s,%s)"
       value_sql = (self.name, self.amount)
       mycursor.execute(sql_query, value_sql)
-      AutoDelteItem()#auto data base clear
 
     def ChangeAmount(self):#change amount of specific product
       sql_query = "UPDATE prize_pool SET amount=%s where product_name=%s"
@@ -49,7 +48,7 @@ class rulate_manage:
 
     def CheckIfUserCanUseRulate(self,user_money):
       if user_money>=GetThePointsThatNeedToJoinWheel():
-        return True
+        return user_money-GetThePointsThatNeedToJoinWheel()
       return False
 
     def RulateTable(self):
