@@ -5,23 +5,23 @@
 {% block title  %} User Page {% endblock %}
 
 {% block head_files %}
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script type="application/json" src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="static/trivia_app/user.css">
 {% endblock %}
 
 
 {% block content %}
 <div style="color:{{text_color}};font-size: 18px;">
-    <input type="checkbox" id="active" value="active" onClick="topchoose(this)" />
+    <input type="checkbox" id="active" value="active" />
         <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
     <div class="wrapper">
     <ul>
-    <li><a style="color:{{text_color}}" href="/trivia">Trivia</a></li>
-    <li><a style="color:{{text_color}}" href="/user">User</a></li>
-    <li><a style="color:{{text_color}}" href="/menu">Menu</a></li>
-    <li><a style="color:{{text_color}}" href="/shop">Shop</a></li>
-    <li><a style="color:{{text_color}}" href="/rulate">Rulate</a></li>
-    <li><a style="color:{{text_color}}" href="/log_out">Log out</a></li>
+    <li><a href="/trivia">Trivia</a></li>
+    <li><a href="/menu">Menu</a></li>
+    <li> <a href="/top">Top</a> </li>
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/rulate">Rulate</a></li>
+    <li><a href="/log_out">Log out</a></li>
     </ul>
     </div>
 </br>

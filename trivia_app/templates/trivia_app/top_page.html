@@ -5,25 +5,29 @@
 {% block title  %} Main Page {% endblock %}
 
 {% block head_files %}
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script type="application/json" src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="static/trivia_app/top.css">
 {% endblock %}
 
 
 {% block content %}
-<div style="color:{{text_color}}">
+
+
 <input type="checkbox" id="active" value="active" onClick="topchoose(this)" />
     <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
 <div class="wrapper">
     <ul>
-<li><a style="color:{{text_color}}" href="/trivia">Trivia</a></li>
-<li><a style="color:{{text_color}}" href="/user">User</a></li>
-<li><a style="color:{{text_color}}" href="/menu">Menu</a></li>
-<li><a style="color:{{text_color}}" href="/shop">Shop</a></li>
-<li><a style="color:{{text_color}}" href="/rulate">Rulate</a></li>
-<li><a style="color:{{text_color}}" href="/log_out">Log out</a></li>
+<li><a href="/trivia">Trivia</a></li>
+<li><a href="/user">User</a></li>
+<li><a href="/menu">Menu</a></li>
+<li><a href="/shop">Shop</a></li>
+<li><a href="/rulate">Rulate</a></li>
+<li><a href="/log_out">Log out</a></li>
 </ul>
 </div>
+
+</br>
+
 
 <div style="color:{{text_color}}">
 <h1>Choose which top 10 you want to see</h1>
@@ -146,6 +150,7 @@ function topchoose(checkbox) {
             vrible=item.value;
           }      
     })
+    console.log("aaaa");
     if(vrible == "points"){
         document.getElementById('TopPoints').style.display="block";
         document.getElementById('TopGames').style.display="none";
@@ -171,22 +176,21 @@ function topchoose(checkbox) {
         document.getElementById('TopStyles').style.display="block";
     }
     else{
-        var cc=document.getElementById("active")
-        if (cc.checked==false){
-            document.getElementById('TopPoints').style.display="none";
-            document.getElementById('TopGames').style.display="none";
-            document.getElementById('TopRounds').style.display="none";
-            document.getElementById('TopStyles').style.display="none";
-            document.getElementById('myform').style.display="block";
-        }
-        else{
-            document.getElementById('TopPoints').style.display="none";
-            document.getElementById('TopGames').style.display="none";
-            document.getElementById('TopRounds').style.display="none";
-            document.getElementById('TopStyles').style.display="none";
-            document.getElementById('myform').style.display="none";
-        }
-        
+      var cc=document.getElementById("active")
+      if (cc.checked==false){
+          document.getElementById('TopPoints').style.display="none";
+          document.getElementById('TopGames').style.display="none";
+          document.getElementById('TopRounds').style.display="none";
+          document.getElementById('TopStyles').style.display="none";
+          document.getElementById('myform').style.display="block";
+      }
+      else{
+          document.getElementById('TopPoints').style.display="none";
+          document.getElementById('TopGames').style.display="none";
+          document.getElementById('TopRounds').style.display="none";
+          document.getElementById('TopStyles').style.display="none";
+          document.getElementById('myform').style.display="none";
+      }
     }
 }
 </script>

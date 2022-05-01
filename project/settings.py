@@ -44,10 +44,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',#static files handle that dont work while debug=false this change it
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-   #'django.middleware.csrf.CsrfViewMiddleware', #disable just a securety, i have already more than two expands(javascript,python,django)
+   #'django.middleware.csrf.CsrfViewMiddleware', #disable just a securety
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
