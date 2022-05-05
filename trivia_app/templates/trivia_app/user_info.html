@@ -28,10 +28,10 @@
 
 <div id="main" class="divContainer">
   <div id="yasuo" class="a">
-  <button class="aa" name="btn-ff" type="submit" value="user_stats">Stats</button>
-  <button class="aa" name="btn-ff" type="submit" value="user_style">Change style</button>
-  <button class="aa" name="btn-ff" type="submit" value="user_change">Change Email/Password</button>
-  <button class="aa" name="btn-ff" type="submit" value="user_div">Show User Color/Image</button>
+  <button class="aa"  style="color:{{text_color}}" name="btn-ff" type="submit" value="user_stats">Stats</button>
+  <button class="aa"  style="color:{{text_color}}" name="btn-ff" type="submit" value="user_style">Change style</button>
+  <button class="aa"  style="color:{{text_color}}" name="btn-ff" type="submit" value="user_change">Change Email/Password</button>
+  <button class="aa"  style="color:{{text_color}}" name="btn-ff" type="submit" value="user_div">Show User Color/Image</button>
   </div>
 <p id="answer_q">{{change_item}}</p>
 <div id="stats_div" style="display:none">
@@ -73,9 +73,9 @@
 </div>
 
 <div id="user_div" style="display:none">
+  <p style="color:{{text_color}}">Color of user</p>
   <p>Image of user:</p>
   <img src="{{img }}" width="250" height="250" />
-  <p style="color:{{text_color}}">Color of user</p>
 </div>
 
 

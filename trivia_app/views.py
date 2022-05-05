@@ -34,8 +34,8 @@ def Main_login(request):#no url
 #you should not delete any data 
 # https://stackoverflow.com/questions/9877263/time-delayed-redirect/16541769 - to timer
 
-def Error_404_view(request):
-    return render("404.html")
+def Error_404_view(request,str):
+    return render(request,"404.html")
 
 #log out view
 def Log_out(request):
@@ -125,6 +125,7 @@ def User_handele(request):
            change_item_return="you dont have this style"
            if userItems.ChangeUserStyleById(request.POST["hidden_style_choosed"]) == True:#function that change the user specific style by id return true if style change
                change_item_return="style changed succsesfuly, wait unitll the data update it!"
+               user__Items=user_items(username=request.session['user']).GetUserSelectedStyles()#change the style
            return render(request,"trivia_app/user_info.html",{
               "username_info":request.session['user'],"password_info":userItems.user.GetPasswordFromData(),
               "email_info":userItems.user.GetEmailFromData(),"points_info":userItems.user.GetPointsFromData(),
@@ -379,7 +380,9 @@ def rulate(request):#should add user colors
                 user_m.UpdateUserPoints(remain_points)#taking the points from user
                 rr=rr.JoinWheel()#parsing the value to the 2 arrays - each time user realod it takes the items so...
                 request.session['items_array'] = rr[1]
-                return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1],"all_return":"From your blance were taken "})
+                return render(request,"trivia_app/rulate.html",{"option_wheel":rr[0],"all_items":rr[1],
+                "all_return":"From your blance were taken ","text_color":userItems[0],      
+                })
 
         
             return render(request,"trivia_app/menu.html",{
@@ -393,8 +396,7 @@ def rulate(request):#should add user colors
             location="Country: "+request.POST["country"]+", "+"City: "+request.POST["city"]+", "+"street: "+request.POST["street"]+", "+"Home Number: "+request.POST["home"]+", "+"Appartment number: "+request.POST["appartment"]
             user_email=user_manage(username=request.session['user']).GetEmailFromData()
             requests.post("http://127.0.0.1:3000/Send_user_his_win_info_in_rulate/",data={"email_address":user_email,"product":request.POST["product"],"user_location":location})
-            return render(request,"trivia_app/menu.html",{"all_return":"The product you won will arrive soon to you, check your email for more information","text_color":userItems[0],
-            "img":"static/trivia_app/"+userItems[1],"username_session":request.session['user'],})     
+            return render(request,"trivia_app/menu.html",{"all_return":"The product you won will arrive soon to you, check your email for more information","text_color":userItems[0],"username_session":request.session['user'],})     
         
     return redirect("/")
 

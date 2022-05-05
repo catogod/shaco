@@ -15,4 +15,5 @@ path("rulate",views.rulate),#testing
 path("main_admin_login",views.Main_admin_login),
 path("main_admin",views.Main_admin),
 path("log_out",views.Log_out),
+path("<str>", views.Error_404_view),#error page
 ]
